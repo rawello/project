@@ -1,0 +1,52 @@
+﻿@page
+@model project.Pages.LoginModel
+@{
+    ViewData["Title"] = "Вход";
+
+
+}
+<style>
+    .form-text{
+        display: block;
+        text-align: center;
+        position:center;
+        width: 140px;
+        padding: 15px;
+        margin: auto;
+    }
+    .signup{
+        text-align: center;
+    }
+</style>
+<form action="login" method="post">
+    <div class="form-text">
+        <label for="email">Введите логин</label>
+        <input type="text" id="email" name="email" required minlength="5" size="24"/>
+    </div>
+    <div class="form-text">
+        <label for="password">Введите пароль</label>
+        <input type="password" id="password" name="password" required minlength="5" size="24" />
+    </div>
+    <div class="form-text">
+        <input type="submit" value="Войти"/>
+    </div>
+</form>
+<a class="signup" asp-area="" asp-page="/Signup">Регистрация</a>
+
+@functions{
+    public void OnPost(string email, string password)
+    {
+        email = Request.Form["email"];
+        password = Request.Form["password"];
+
+        if (Routes.Login(email, password) == 1)
+        {
+
+        }
+        else
+        {
+
+        }
+
+    }
+}
