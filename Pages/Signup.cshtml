@@ -36,11 +36,11 @@
 
         if (Routes.Signup(email, password) == 1)
         {
-            <script>alert("test")</script>
+            RedirectToPage("/Login");
         }
         else
         {
-            <script>alert("test")</script>
+            RedirectToPage("/Signup");
         }
 
     }
