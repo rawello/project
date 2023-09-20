@@ -193,8 +193,8 @@ namespace project
 
         public static int Signup(string email, string password)
         {
-            //try
-            //{
+            try
+            {
                 using (var connection = new SqliteConnection($"Data Source={Db}"))
                 {
                     connection.Open();
@@ -207,11 +207,11 @@ namespace project
                     connection.Close();
                 }
                 return 1;
-            //}
-            //catch (Exception e)
-            //{
-            //    return 0;
-            //}
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
             
         }
     }
