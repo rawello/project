@@ -5,3 +5,70 @@
 @{
 }
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Новости</title>
+    <style>
+        .news-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .news-post {
+            width: 300px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+            .news-post h2 {
+                font-size: 18px;
+            }
+
+            .news-post p {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+    </style>
+</head>
+<body>
+
+    <h1>Новости</h1>
+    <div class="news-container">
+        @for (int i = 0;i<1 ;i++ )
+        {
+            string sqlExpression = "SELECT * FROM Posts";
+            using (var connection = new SqliteConnection("Data Source=project.db"))
+            {
+                connection.Open();
+
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows) // если есть данные
+                    {
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            var id = reader.GetValue(1);
+                            var name = reader.GetValue(2);
+                            var age = reader.GetValue(3);
+
+                            <div class="news-post">
+                                <h2>@Html.Raw(id)</h2>
+                                <p>@Html.Raw(name)</p>
+                                <p>@Html.Raw(age)</p>
+                            </div>
+                        }
+                    }
+                }
+            }
+        }
+    </div>
+</body>
+</html>
+@functions{
+    public string dast = "<h1>dasdasdasdasd</h1>";
+}

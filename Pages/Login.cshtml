@@ -18,7 +18,7 @@
         text-align: center;
     }
 </style>
-<form action="login" method="post">
+<form action="login" method="get">
     <div class="form-text">
         <label for="email">Введите логин</label>
         <input type="text" id="email" name="email" required minlength="5" size="24"/>
@@ -31,22 +31,5 @@
         <input type="submit" value="Войти"/>
     </div>
 </form>
+<p>@Model.mess</p>
 <a class="signup" asp-area="" asp-page="/Signup">Регистрация</a>
-
-@functions{
-    public void OnPost(string email, string password)
-    {
-        email = Request.Form["email"];
-        password = Request.Form["password"];
-
-        if (Routes.Login(email, password) == 1)
-        {
-
-        }
-        else
-        {
-
-        }
-
-    }
-}
