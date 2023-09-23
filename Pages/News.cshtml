@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{handler?}"
 @using Microsoft.Data.Sqlite;
 @using project
 @model project.Pages.NewsModel
@@ -32,11 +32,21 @@
                 font-size: 14px;
                 margin-bottom: 10px;
             }
+            .btn-close{
+                color: red;
+            }
     </style>
 </head>
 <body>
 
     <h1>Новости</h1>
+    @if(Program.IsAdmin == true){
+        <form asp-page-handler="OnAdd" method="get">
+            <button class="btn-success">Добавить новость</button>
+        </form>
+    }
+    
+    
     <div class="news-container">
         @for (int i = 0;i<1 ;i++ )
         {
@@ -52,16 +62,38 @@
                     {
                         while (reader.Read())   // построчно считываем данные
                         {
-                            var id = reader.GetValue(1);
-                            var name = reader.GetValue(2);
-                            var age = reader.GetValue(3);
+                            var id = reader.GetValue(0);
+                            var name = reader.GetValue(1);
+                            var description = reader.GetValue(2);
+                            var cshtml = reader.GetValue(3);
 
-                            <div class="news-post">
-                                <h2>@Html.Raw(id)</h2>
-                                <p>@Html.Raw(name)</p>
-                                <p>@Html.Raw(age)</p>
+
+                            <div class="news-post" align="center" id="@id">
+
+                                <form asp-page-handler="OnClick" method="get">
+                                <font size="+0">
+                                        <input type="submit" value="@Html.Raw(name)">
+                                </font>
+
+                                    <input type="number" name="id" id="@id" value="@id" hidden="hidden">
+                                </form>
+
+                                <h2>@Html.Raw(description)</h2>
+
+
+                                @if (Program.IsAdmin == true)
+                                {
+                                    <form asp-page-handler="OnDelete" method="get">
+                                        <button class="btn-close"></button>
+
+                                        <input type="number" name="id" id="@id" value="@id" hidden="hidden">
+                                    </form>
+                                }
+
                             </div>
+                            
                         }
+                        connection.Close();
                     }
                 }
             }
@@ -69,6 +101,3 @@
     </div>
 </body>
 </html>
-@functions{
-    public string dast = "<h1>dasdasdasdasd</h1>";
-}

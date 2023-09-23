@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using project;
+using project.Models;
 using System.Xml.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace project
 {
@@ -11,7 +13,7 @@ namespace project
     {
         public const string Db = "project.db";
 
-        public static string AddPost(string name, string description, string cshtml)
+        public static string AddPost(string name, string description, string cshtml, string title)
         {
             //добавляем данные
             using (var connection = new SqliteConnection($"Data Source={Db}"))
@@ -20,7 +22,7 @@ namespace project
 
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = $"INSERT INTO Posts (Name, Description, Cshtml) VALUES ({name}, {description}, {cshtml})";
+                command.CommandText = $"INSERT INTO Posts (Name, Description, Cshtml, Title) VALUES ({name}, {description}, {cshtml}, {title})";
                 command.ExecuteNonQuery();
 
                 connection.Close();
@@ -53,8 +55,8 @@ namespace project
 
 
 
-
-        public static int UpdatePost(int id, string name, string description, string cshtml)
+           
+        public static int UpdatePost(int id, string name, string description, string cshtml, string title)
         {
             try
             {
@@ -70,6 +72,8 @@ namespace project
                     command.ExecuteNonQuery();
                     command.CommandText = $"UPDATE Posts SET Cshtml='{cshtml}' WHERE ID={id} ";
                     command.ExecuteNonQuery();
+                    command.CommandText = $"UPDATE Posts SET Title='{title}' WHERE ID={id} ";
+                    command.ExecuteNonQuery();
 
                     connection.Close();
                 }
@@ -83,7 +87,7 @@ namespace project
         }
 
 
-        public static string RemovePost(string name, string description, string cshtml)
+        public static string RemovePost(int id)
         {
             //удаляем
             using (var connection = new SqliteConnection($"Data Source={Db}"))
@@ -93,19 +97,18 @@ namespace project
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
                 command.CommandText = $"DELETE FROM Posts" +
-                                      $"WHERE Name = \"{name}\"" +
-                                      $"AND Description = \"{description}\"" +
-                                      $"AND Cshtml = \"{cshtml}\"";
+                                      $" WHERE _id = {id}";
                 command.ExecuteNonQuery();
 
                 connection.Close();
             }
 
             //удалилось или нет
-            string sqlExp = $"SELECT * FROM Posts " +
-                            $"WHERE Name = \"{name}\"" +
-                            $"AND Description = \"{description}\"" +
-                            $"AND Cshtml = \"{cshtml}\"";
+            //string sqlExp = $"SELECT * FROM Posts " +
+            //                $"WHERE Name = \"{name}\"" +
+            //                $"AND Description = \"{description}\"" +
+            //                $"AND Cshtml = \"{cshtml}\"";
+            string sqlExp = "SELECT * FROM Posts";
 
             using (var connection = new SqliteConnection($"Data Source={Db}"))
             {
@@ -126,63 +129,63 @@ namespace project
         }
 
 
-        //--------------------------------------------------------------------------------------
+                //--------------------------------------------------------------------------------------
 
 
-        /* public static int ChangeUser(int id, string email, string password, bool isadmin)
-         {
-             try
-             {
-                 using (var connection = new SqliteConnection($"Data Source={Db}"))
+                /* public static int ChangeUser(int id, string email, string password, bool isadmin)
                  {
-                     connection.Open();
+                     try
+                     {
+                         using (var connection = new SqliteConnection($"Data Source={Db}"))
+                         {
+                             connection.Open();
 
-                     SqliteCommand command = new SqliteCommand();
-                     command.Connection = connection;
-                     command.CommandText = $"UPDATE Users SET Email='{email}' WHERE ID={id} ";
-                     command.ExecuteNonQuery();
-                     command.CommandText = $"UPDATE Users SET Password='{password}' WHERE ID={id} ";
-                     command.ExecuteNonQuery();
-                     command.CommandText = $"UPDATE Users SET IsAdmin={isadmin} WHERE ID={id} ";
-                     command.ExecuteNonQuery();
+                             SqliteCommand command = new SqliteCommand();
+                             command.Connection = connection;
+                             command.CommandText = $"UPDATE Users SET Email='{email}' WHERE ID={id} ";
+                             command.ExecuteNonQuery();
+                             command.CommandText = $"UPDATE Users SET Password='{password}' WHERE ID={id} ";
+                             command.ExecuteNonQuery();
+                             command.CommandText = $"UPDATE Users SET IsAdmin={isadmin} WHERE ID={id} ";
+                             command.ExecuteNonQuery();
 
-                     connection.Close();
+                             connection.Close();
+                         }
+                         return 1;
+                     }
+                     catch (Exception e)
+                     {
+                         return 0;
+                     }
+
                  }
-                 return 1;
-             }
-             catch (Exception e)
-             {
-                 return 0;
-             }
-
-         }
 
 
-                                      временно не нуждаюсь в данных функциях
+                                              временно не нуждаюсь в данных функциях
 
-         public static int RemoveUser(int id)
-         {
-             try
-             {
-                 using (var connection = new SqliteConnection($"Data Source={Db}"))
+                 public static int RemoveUser(int id)
                  {
-                     connection.Open();
+                     try
+                     {
+                         using (var connection = new SqliteConnection($"Data Source={Db}"))
+                         {
+                             connection.Open();
 
-                     SqliteCommand command = new SqliteCommand();
-                     command.Connection = connection;
-                     command.CommandText = $"DELETE FROM Users WHERE ID={id}";
-                     command.ExecuteNonQuery();
+                             SqliteCommand command = new SqliteCommand();
+                             command.Connection = connection;
+                             command.CommandText = $"DELETE FROM Users WHERE ID={id}";
+                             command.ExecuteNonQuery();
 
-                     connection.Close();
-                 }
-                 return 1;
-             }
-             catch (Exception e)
-             {
-                 return 0;
-             }
+                             connection.Close();
+                         }
+                         return 1;
+                     }
+                     catch (Exception e)
+                     {
+                         return 0;
+                     }
 
-         }*/
+                 }*/
 
 
         public static string Login(string email, string password)
@@ -249,64 +252,6 @@ namespace project
                     }
                 }
             }
-            catch (Exception e)
-            {
-                return 0;
-            }
-
-        }
-
-
-        //------------------------------------------------
-
-        public static int Login(string email, string password)
-        {
-            try
-            {
-                using (var connection = new SqliteConnection($"Data Source={Db}"))
-                {
-                    connection.Open();
-
-                    SqliteCommand command = new SqliteCommand();
-                    command.Connection = connection;
-                    command.CommandText = $"SELECT {email} FROM Users WHERE {email} = @Email" +
-                        $"AND {password} = @password";
-                    command.ExecuteNonQuery();
-
-                    connection.Close();
-                }
-                return 1;
-            }
-            catch (Exception e)
-            {
-                return 0;
-            }
-
-        }
-
-
-        public static int Signup(string email, string password)
-        {
-            try
-            {
-                using (var connection = new SqliteConnection($"Data Source={Db}"))
-                {
-                    connection.Open();
-
-                    SqliteCommand command = new SqliteCommand();
-                    command.Connection = connection;
-                    command.CommandText = $"INSERT INTO Users (Email, Password) VALUES ('{email}', '{password}')";
-                    command.ExecuteNonQuery();
-
-                    connection.Close();
-                }
-                return 1;
-            }
-            catch (Exception e)
-            {
-                return 0;
-            }
-
         }
     }
 }

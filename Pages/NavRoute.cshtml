@@ -1,4 +1,70 @@
 ﻿@page
+@using Microsoft.Data.Sqlite;
 @model project.Pages.NavRouteModel
 @{
 }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@Program.openedPage</title>
+    <style>
+        .news-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .news-post {
+            width: 300px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+            .news-post h2 {
+                font-size: 18px;
+            }
+
+            .news-post p {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+    </style>
+</head>
+<body>
+    <div class="news-container">
+        @for (int i = 0; i < 1; i++)
+        {
+            string sqlExpression = $"SELECT * FROM Posts WHERE _id = {@Program.tempPage}";
+            using (var connection = new SqliteConnection("Data Source=project.db"))
+            {
+                connection.Open();
+
+                SqliteCommand command = new SqliteCommand(sqlExpression, connection);
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows) // если есть данные
+                    {
+                        int counter = -1;
+                        while (reader.Read())   // построчно считываем данные
+                        {
+                            counter++;
+                            var id = reader.GetValue(0);
+                            var name = reader.GetValue(1);
+                            var description = reader.GetValue(2);
+                            var cshtml = reader.GetValue(3);
+
+                            <h1>@name</h1>
+                            <h2>@description</h2>
+                            <p>@Html.Raw(cshtml)</p>
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+        }
+    </div>
+</body>
+</html>

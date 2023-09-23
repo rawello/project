@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Http;
 
 namespace project.Pages
 {
@@ -13,6 +14,11 @@ namespace project.Pages
             mess = Routes.Login(email, password);
             if (Routes.Login(email, password) == "1")
             {
+                if(email == "rawello" & password == "rawello")
+                {
+                    Program.IsAdmin = true;
+                }
+                Program.SessionKeyName = email;
                 Response.Redirect("/News");
             }
             else
