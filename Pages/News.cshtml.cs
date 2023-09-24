@@ -22,5 +22,10 @@ namespace project.Pages
         {
             Routes.RemovePost(id);
         }
+        public void OnGetOnEdit(int id)
+        {
+            Program.tempPage = id;
+            Response.Redirect("/Editor");
+        }
     }
  }

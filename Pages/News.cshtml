@@ -42,7 +42,7 @@
     <h1>Новости</h1>
     @if(Program.IsAdmin == true){
         <form asp-page-handler="OnAdd" method="get">
-            <button class="btn-success">Добавить новость</button>
+            <button class="btn-primary">Добавить новость</button>
         </form>
     }
     
@@ -83,11 +83,23 @@
 
                                 @if (Program.IsAdmin == true)
                                 {
+                                    <table>
+                                        <tr>
                                     <form asp-page-handler="OnDelete" method="get">
-                                        <button class="btn-close"></button>
+                                        <button class="btn-danger"></button>
 
                                         <input type="number" name="id" id="@id" value="@id" hidden="hidden">
                                     </form>
+                                        </tr>
+                                        <tr>
+                                            <form asp-page-handler="OnEdit" method="get">
+                                                <button class="btn-success"></button>
+
+                                                <input type="number" name="id" id="@id" value="@id" hidden="hidden">
+                                            </form>
+                                        </tr>
+                                    </table>
+
                                 }
 
                             </div>

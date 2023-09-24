@@ -1,5 +1,66 @@
-﻿@page
+﻿@page "{handler?}"
 @model project.Pages.CreaterModel
 @{
     ViewData["Title"] = "Создать пост";
 }
+
+<style>
+    .form-text {
+        display: block;
+        text-align: center;
+        position: center;
+        width: 350px;
+        padding: 10px;
+        margin: auto;
+        align-content: center;
+    }
+
+    label{
+        width: 200px;
+        align-content: center;
+    }
+
+    textarea.cshtml {
+        width: 300px;
+        height: 350px;
+        padding: 5px 10px 5px 10px;
+        border: 1px solid #808080;
+        text-align: start;
+        font-size: 16px;
+        font-family: Tahoma;
+    }
+    input{
+        width: 300px;
+    }
+
+    input.but{
+        width: 300px;
+    }
+
+    .signup {
+        text-align: center;
+    }
+</style>
+                    <h1 align="center">Добавление новости</h1>
+                    <form asp-page-handler="OnCreate" method="get">
+                        <input type="number" id="@Program.tempPage" name="id" value="@Program.tempPage" hidden="hidden"/>
+                        <div class="form-text">
+                            <label for="name">Введите название</label>
+                            <input type="text" id="name" name="name" required minlength="5" size="24" />
+                        </div>
+                        <div class="form-text">
+                            <label for="description">Введите описание</label>
+                            <input type="text" id="description" name="description" required minlength="5" size="24" />
+                        </div>
+                        <div class="form-text">
+                            <label for="cshtmlCode">Введите код страницы</label>
+                            <textarea class="cshtml" name="cshtmlCode" required minlength="5" size="24"> </textarea>
+                        </div>
+                        <div class="form-text">
+                            <label for="title">Введите заголовок</label>
+                            <input type="text" id="title" name="title" required minlength="5" size="24" />
+                        </div>
+                        <div class="form-text">
+                            <input type="submit" class="but" value="Добавить пост" />
+                        </div>
+                    </form>

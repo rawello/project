@@ -26,15 +26,67 @@ namespace project
                 command.ExecuteNonQuery();
 
                 connection.Close();
+                return "1";
             }
 
 
+            //string sqlExp = $"SELECT * FROM Posts " +
+            //                $"WHERE Name = \"{name}\"" +
+            //                $"AND Description = \"{description}\"" +
+            //                $"AND Cshtml = \"{cshtml}\"";
+
+            ////проверка добавилось или нет
+            //using (var connection = new SqliteConnection($"Data Source={Db}"))
+            //{
+            //    connection.Open();
+            //    SqliteCommand command = new SqliteCommand(sqlExp, connection);
+            //    using (SqliteDataReader reader = command.ExecuteReader())
+            //    {
+            //        if (reader.HasRows)
+            //        {
+            //            return "1";
+            //        }
+            //        else
+            //        {
+            //            return "0";
+            //        }
+            //    }
+            //}
+        }
+
+
+
+           
+        public static string UpdatePost(int id, string name, string description, string cshtml, string title)
+        {
+            using (var connection = new SqliteConnection($"Data Source={Db}"))
+            {
+                connection.Open();
+
+                SqliteCommand command = new SqliteCommand();
+                command.Connection = connection;
+                command.CommandText = $"UPDATE Posts SET Name=\"{name}\", " +
+                    $" Description =\"{description}\", " +
+                    $" Cshtml = \"{cshtml}\", " +
+                    $" Title = \"{title}\" " +
+                    $"WHERE _id = {id} ";
+                command.ExecuteNonQuery();
+                //command.CommandText = $"UPDATE Posts SET Description='{description}' WHERE ID={id} ";
+                //command.ExecuteNonQuery();
+                //command.CommandText = $"UPDATE Posts SET Cshtml='{cshtml}' WHERE ID={id} ";
+                //command.ExecuteNonQuery();
+                //command.CommandText = $"UPDATE Posts SET Title='{title}' WHERE ID={id} ";
+                //command.ExecuteNonQuery();
+
+                connection.Close();
+            }
+
             string sqlExp = $"SELECT * FROM Posts " +
-                            $"WHERE Name = \"{name}\"" +
+                            $"WHERE _id = \"{id}\"" +
+                            $"AND Name = \"{name}\"" +
                             $"AND Description = \"{description}\"" +
                             $"AND Cshtml = \"{cshtml}\"";
 
-            //проверка добавилось или нет
             using (var connection = new SqliteConnection($"Data Source={Db}"))
             {
                 connection.Open();
@@ -51,39 +103,6 @@ namespace project
                     }
                 }
             }
-        }
-
-
-
-           
-        public static int UpdatePost(int id, string name, string description, string cshtml, string title)
-        {
-            try
-            {
-                using (var connection = new SqliteConnection($"Data Source={Db}"))
-                {
-                    connection.Open();
-
-                    SqliteCommand command = new SqliteCommand();
-                    command.Connection = connection;
-                    command.CommandText = $"UPDATE Posts SET Name='{name}' WHERE ID={id} ";
-                    command.ExecuteNonQuery();
-                    command.CommandText = $"UPDATE Posts SET Description='{description}' WHERE ID={id} ";
-                    command.ExecuteNonQuery();
-                    command.CommandText = $"UPDATE Posts SET Cshtml='{cshtml}' WHERE ID={id} ";
-                    command.ExecuteNonQuery();
-                    command.CommandText = $"UPDATE Posts SET Title='{title}' WHERE ID={id} ";
-                    command.ExecuteNonQuery();
-
-                    connection.Close();
-                }
-                return 1;
-            }
-            catch (Exception e)
-            {
-                return 0;
-            }
-
         }
 
 

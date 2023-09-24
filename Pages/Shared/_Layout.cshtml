@@ -27,9 +27,17 @@
                         <li class="nav-item" style="position:absolute; left:600px; top:10px">
                             <a class="nav-link text-white" asp-area="" asp-page="/News">Новости</a>
                         </li>
-                        <li class="nav-item" style="position:absolute; right:50px; top:10px">
-                            <a class="nav-link text-white" asp-area="" asp-page="/Login">Вход</a>
-                        </li>
+                        @if(Program.IsLogged == true){
+                            <li class="nav-item" style="position:absolute; right:50px; top:10px">
+                                <a class="nav-link text-white" asp-area="" asp-page="/Reloader">Выход</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item" style="position:absolute; right:50px; top:10px">
+                                <a class="nav-link text-white" asp-area="" asp-page="/Login">Вход</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

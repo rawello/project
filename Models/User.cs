@@ -11,6 +11,6 @@ namespace project.Models
         [BindProperty]
         public string   Password    { get; set; }
         [BindProperty]
-        public bool     IsAdmin     { get; set; }
+        public string   IsAdmin     { get; set; }
     }
 }

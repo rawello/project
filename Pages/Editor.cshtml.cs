@@ -3,20 +3,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace project.Pages
 {
-    public class CreaterModel : PageModel
+    public class EditorModel : PageModel
     {
         public void OnGet()
         {
         }
-        public void OnGetOnCrt(string name, string description, string cshtml, string title)
+        public void OnGetOnUpdt(int id,string name, string description, string cshtmlCode, string title)
         {
-            if(Routes.AddPost(name, description, cshtml, title) == "1")
+            if (Routes.UpdatePost(id, name, description, cshtmlCode, title) == "1")
             {
                 Response.Redirect("/News");
             }
             else
             {
-
+                Response.Redirect("/News");
             }
         }
     }

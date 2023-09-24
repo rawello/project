@@ -7,11 +7,13 @@ namespace project
 {
     public class Program
     {
-        public static string SessionKeyName = "√ость";
-        public static bool IsAdmin = false;
-        public static int tempPage = -1;
-        public static string openedPage = "Ќовость";
-        public const string Db = "project.db";
+        public static   string  SessionKeyName  = "√ость";
+        public static   bool    IsLogged        = false;
+        public static   bool    IsAdmin         = false;
+        public static   int     tempPage        = -1;
+        public static   string  temp            = "";
+        public static   string  openedPage      = "Ќовость";
+        public const    string  Db              = "project.db";
 
 
         [AllowAnonymous]
@@ -48,12 +50,14 @@ namespace project
                 connection.Open();
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                
+
+                //command.CommandText = "Drop table Users";
+                //command.ExecuteNonQuery();
 
                 command.CommandText = "CREATE TABLE IF NOT EXISTS Users(_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
                     " Email TEXT NOT NULL," +
                     " Password TEXT NOT NULL," +
-                    " IsAdmin BOOLEAN DEFAULT false NOT NULL )";
+                    " IsAdmin TEXT DEFAULT 0 NOT NULL )";
 
                 command.ExecuteNonQuery();
 
@@ -71,7 +75,15 @@ namespace project
                 //string name = "«десь будет название новости";
                 //string desc = "«десь будет краткое описание новости на которую клац клац";
                 //string title = "Ќовость";
-                //string cshtml = "<!DOCTYPE html><html><head></head><body><h1>тестирование новости</h1><p>‘ормула 1, также известна€ как ‘1, €вл€етс€ высшим классом автогонок на специально построенных трассах. ‘ормула 1 олицетвор€ет самое высокое достижение автоспорта в таких аспектах, как технологи€, скорость и соревновательность. ¬ ней участвуют специализированные гоночные команды с мощными моторами, передовыми техническими решени€ми и самыми талантливыми гонщиками. ‘ормула 1 привлекает многочисленных поклонников со всего мира благодар€ своей динамике, адреналину и уникальной атмосфере.</p></body></html>";
+                //string cshtml = "<!DOCTYPE html><html><head></head><body><h1>тестирование новости</h1><p>‘ормула 1, также известна€ как ‘1, €вл€етс€ высшим классом автогонок на специально построенных трассах.</p> <img src=https://imgtest.mir24.tv/uploaded/images/crops/2023/July/870x489_0x259_detail_crop_20230720121303_bb7da4e9_e4eb3f5ef3303ee23c6c7827fec55723597f0c7a88cfd13cf9bd380568ccfda7.jpg/><p>‘ормула 1 олицетвор€ет самое высокое достижение автоспорта в таких аспектах, как технологи€, скорость и соревновательность. ¬ ней участвуют специализированные гоночные команды с мощными моторами, передовыми техническими решени€ми и самыми талантливыми гонщиками. ‘ормула 1 привлекает многочисленных поклонников со всего мира благодар€ своей динамике, адреналину и уникальной атмосфере.</p></body></html>";
+                //command.CommandText = $"INSERT INTO Posts (Name, Description, Cshtml, Title) VALUES (\"{name}\", \"{desc}\", \"{cshtml}\", \"{title}\")";
+                //command.ExecuteNonQuery();
+
+
+                //string name = "«десь будет название новости";
+                //string desc = "«десь будет краткое описание новости на которую клац клац";
+                //string title = "Ќовость";
+                //string cshtml = "<img src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEPbLj6f4c4xCjA6Yj80539-zmbqPpd57YXw&usqp=CAU />";
                 //command.CommandText = $"INSERT INTO Posts (Name, Description, Cshtml, Title) VALUES (\"{name}\", \"{desc}\", \"{cshtml}\", \"{title}\")";
                 //command.ExecuteNonQuery();
 
