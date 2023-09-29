@@ -2,6 +2,7 @@
 @using Microsoft.Data.Sqlite;
 @model project.Pages.NavRouteModel
 @{
+    ViewData["Title"] = $"{Program.openedPage}";
 }
 
 <!DOCTYPE html>
@@ -55,10 +56,32 @@
                             var name = reader.GetValue(1);
                             var description = reader.GetValue(2);
                             var cshtml = reader.GetValue(3);
+                            var title = reader.GetValue(4);
+
+                            Program.openedPage = (string) title;
+                            
+                            <style>
+                                h1{
+                                    text-align: center;
+                                    width: 100%;
+                                }
+                                h2{
+                                    width: 100%;
+                                    text-align: center;
+                                }
+                                h3{
+                                    width: 100%;
+                                    text-align: center;
+                                }
+                            </style>
 
                             <h1>@name</h1>
+                            <p>
                             <h2>@description</h2>
-                            <p>@Html.Raw(cshtml)</p>
+                            </p>
+                            <p>
+                            <h3>@Html.Raw(cshtml)</h3>
+                            </p>
                         }
                     }
                     connection.Close();

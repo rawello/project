@@ -5,6 +5,22 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Добрый вечор</h1>
-    <h1>@Program.SessionKeyName</h1>
+    @functions{
+        DateTime localDate = DateTime.Now;
+    }
+    @if(localDate.Hour > 5 & localDate.Hour < 11)
+    {
+        <h1 class="display-4">Доброе утречко, @Program.SessionKeyName</h1>
+
+    }
+    else if (localDate.Hour > 11 & localDate.Hour < 20)
+    {
+        <h1 class="display-4">Добрый денечек, @Program.SessionKeyName</h1>
+    }
+    else
+    {
+        <h1 class="display-4">Добрый вечор, @Program.SessionKeyName</h1>
+    }
  </div>
+
+ <p style="font-size: 40pt">здесь типо чета написать на главной странице надо</p>

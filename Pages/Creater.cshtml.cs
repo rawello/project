@@ -7,6 +7,10 @@ namespace project.Pages
     {
         public void OnGet()
         {
+            if (Program.IsAdmin == false)
+            {
+                Response.Redirect("/News");
+            }
         }
         public void OnGetOnCrt(string name, string description, string cshtml, string title)
         {
@@ -16,7 +20,7 @@ namespace project.Pages
             }
             else
             {
-
+                Response.Redirect("/Index");
             }
         }
     }

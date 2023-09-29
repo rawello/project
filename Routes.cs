@@ -22,36 +22,38 @@ namespace project
 
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
-                command.CommandText = $"INSERT INTO Posts (Name, Description, Cshtml, Title) VALUES ({name}, {description}, {cshtml}, {title})";
+                command.CommandText = $"INSERT INTO Posts (Name, Description, Cshtml, Title) VALUES ('{name}', '{description}', '{cshtml}', '{title}')";
                 command.ExecuteNonQuery();
 
                 connection.Close();
-                return "1";
             }
 
 
-            //string sqlExp = $"SELECT * FROM Posts " +
-            //                $"WHERE Name = \"{name}\"" +
-            //                $"AND Description = \"{description}\"" +
-            //                $"AND Cshtml = \"{cshtml}\"";
+            string sqlExp = $"SELECT * FROM Posts " +
+                            $"WHERE Name = \"{name}\"" +
+                            $"AND Description = \"{description}\"" +
+                            $"AND Cshtml = \"{cshtml}\"";
 
-            ////проверка добавилось или нет
-            //using (var connection = new SqliteConnection($"Data Source={Db}"))
-            //{
-            //    connection.Open();
-            //    SqliteCommand command = new SqliteCommand(sqlExp, connection);
-            //    using (SqliteDataReader reader = command.ExecuteReader())
-            //    {
-            //        if (reader.HasRows)
-            //        {
-            //            return "1";
-            //        }
-            //        else
-            //        {
-            //            return "0";
-            //        }
-            //    }
-            //}
+            //проверка добавилось или нет
+            using (var connection = new SqliteConnection($"Data Source={Db}"))
+            {
+                connection.Open();
+                SqliteCommand command = new SqliteCommand(sqlExp, connection);
+                using (SqliteDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        connection.Close();
+
+                        return "1";
+                    }
+                    else {
+                        connection.Close();
+
+                    return "0";
+                    }
+                }
+            }
         }
 
 
@@ -66,26 +68,21 @@ namespace project
                 SqliteCommand command = new SqliteCommand();
                 command.Connection = connection;
                 command.CommandText = $"UPDATE Posts SET Name=\"{name}\", " +
-                    $" Description =\"{description}\", " +
-                    $" Cshtml = \"{cshtml}\", " +
-                    $" Title = \"{title}\" " +
+                    $" Description ='{description}', " +
+                    $" Cshtml = '{cshtml}', " +
+                    $" Title = '{title}' " +
                     $"WHERE _id = {id} ";
                 command.ExecuteNonQuery();
-                //command.CommandText = $"UPDATE Posts SET Description='{description}' WHERE ID={id} ";
-                //command.ExecuteNonQuery();
-                //command.CommandText = $"UPDATE Posts SET Cshtml='{cshtml}' WHERE ID={id} ";
-                //command.ExecuteNonQuery();
-                //command.CommandText = $"UPDATE Posts SET Title='{title}' WHERE ID={id} ";
-                //command.ExecuteNonQuery();
 
                 connection.Close();
+                //return "1";
             }
 
             string sqlExp = $"SELECT * FROM Posts " +
-                            $"WHERE _id = \"{id}\"" +
-                            $"AND Name = \"{name}\"" +
-                            $"AND Description = \"{description}\"" +
-                            $"AND Cshtml = \"{cshtml}\"";
+                            $"WHERE _id = '{id}'" +
+                            $"AND Name = '{name}'" +
+                            $"AND Description = '{description}'" +
+                            $"AND Cshtml = '{cshtml}'";
 
             using (var connection = new SqliteConnection($"Data Source={Db}"))
             {
@@ -137,10 +134,13 @@ namespace project
                 {
                     if (reader.HasRows)
                     {
+                        connection.Close();
+
                         return "1";
                     }
-                    else
-                    {
+                    else {
+                        connection.Close();
+
                         return "0";
                     }
                 }
@@ -223,10 +223,12 @@ namespace project
                 {
                     if (reader.HasRows)
                     {
+                        connection.Close();
                         return "1";
                     }
                     else
                     {
+                        connection.Close();
                         return "0";
                     }
                 }
@@ -263,10 +265,14 @@ namespace project
                 {
                     if (reader.HasRows)
                     {
+                        connection.Close();
+
                         return "1";
                     }
                     else
                     {
+                        connection.Close();
+
                         return "0";
                     }
                 }

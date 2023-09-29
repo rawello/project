@@ -58,7 +58,7 @@
                     var id = reader.GetValue(0);
                     var name = reader.GetValue(1);
                     var description = reader.GetValue(2);
-                    var cshtml = reader.GetValue(3);
+                    var cshtml =(string) reader.GetValue(3);
                     var title = reader.GetValue(4);
                     
 
@@ -71,11 +71,15 @@
                         </div>
                         <div class="form-text">
                             <label for="description">Введите описание</label>
-                            <input type="text" id="description" name="description" value="@description" required minlength="5" size="24" />
+                            <input type="text" id="description" name="description" value="@description" required minlength="5" maxlength="2083" size="24" />
                         </div>
                         <div class="form-text">
                             <label for="cshtmlCode">Введите код страницы</label>
-                            <textarea class="cshtml" name="cshtmlCode" required minlength="5" size="24">@cshtml </textarea>
+                            @if (cshtml.Length > 2080)
+                            {
+                                cshtml = "слишком много символов";
+                            }
+                            <textarea class="cshtml" name="cshtmlCode" required minlength="5" maxlength="2083" size="24">@cshtml </textarea>
                         </div>
                         <div class="form-text">
                             <label for="title">Введите заголовок</label>

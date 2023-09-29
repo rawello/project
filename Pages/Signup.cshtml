@@ -5,25 +5,51 @@
 
 }
 <style>
+    form{
+        margin-top: 100px;
+    }
     .form-text {
+        font-size: 15pt;
         display: block;
         text-align: center;
         position: center;
+        margin-top: 300px;
         width: 140px;
         padding: 15px;
         margin: auto;
     }
+
+    .text-form {
+        margin-left: 30px;
+    }
+
+    .signup {
+        text-align: center;
+    }
+
+    input {
+        font-size: 15pt;
+    }
+
+    .submition {
+        position: center;
+        margin-top: 28px;
+        font-size: 16pt;
+        width: 270px;
+        height: 35px;
+    }
 </style>
-<form method="post" asp-antiforgery="true">
+<form action="login" method="post" asp-antiforgery="true">
     <div class="form-text">
-        <label for="email">Введите логин</label>
-        <input type="text" id="email" name="email" required minlength="5" size="24" />
+        <label for="email" style="width: 200px" class="text-form">Введите логин</label>
+        <input type="text" id="email" name="email" required minlength="5" size="24" class="text-input" />
     </div>
     <div class="form-text">
-        <label for="password">Введите пароль</label>
-        <input type="password" id="password" name="password" required minlength="5" size="24" />
+        <label for="password" style="width: 200px" class="text-form">Введите пароль</label>
+        <input type="password" id="password" name="password" required minlength="5" size="24" class="text-input" />
     </div>
-    <div class="form-text">
-        <input type="submit" value="Войти" />
+    <div class="form-text" style="position: center">
+        <input type="submit" value="Зарегистрироваться" class="submition" />
+        <a class="signup" asp-area="" asp-page="/Login" style="text-align: center; margin-left: 70px; padding: 10px; color: #808080">Вход </a>
     </div>
 </form>

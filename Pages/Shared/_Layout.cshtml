@@ -9,32 +9,38 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/project.styles.css" asp-append-version="true" />
+    @* <style>
+        a{
+            font-size: 20pt;
+
+        }
+    </style> *@
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Здраствуйте, @Program.SessionKeyName </a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index" style="position: sticky;">Здраствуйте, @Program.SessionKeyName &nbsp;&nbsp;&nbsp;</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item" style="position:absolute; left:500px; top:10px">
-                            <a class="nav-link text-white" asp-area="" asp-page="/Index">Главная</a>
+                        <li class="nav-item" style="position:sticky; top:5px">
+                            <a class="nav-link text-white" asp-area="" asp-page="/Index">Главная &nbsp;&nbsp;&nbsp;</a>
                         </li>
-                        <li class="nav-item" style="position:absolute; left:600px; top:10px">
+                        <li class="nav-item" style="position:sticky; top:5px">
                             <a class="nav-link text-white" asp-area="" asp-page="/News">Новости</a>
                         </li>
                         @if(Program.IsLogged == true){
-                            <li class="nav-item" style="position:absolute; right:50px; top:10px">
+                            <li class ="nav-item" style="position: fixed; right: 75px; top:7px">
                                 <a class="nav-link text-white" asp-area="" asp-page="/Reloader">Выход</a>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item" style="position:absolute; right:50px; top:10px">
+                            <li class="nav-item" style="position: fixed; right: 75px; top:7px">
                                 <a class="nav-link text-white" asp-area="" asp-page="/Login">Вход</a>
                             </li>
                         }
@@ -63,7 +69,6 @@
             - Voronov
             - <a asp-area="" asp-page="/Contacts">Контакты</a>
             - <a asp-area="" asp-page="/About">О нас</a>
-            - <a asp-area="" asp-page="/NavRoute">Как добраться</a>
         </div>
     </footer>
 

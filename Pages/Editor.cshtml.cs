@@ -7,6 +7,10 @@ namespace project.Pages
     {
         public void OnGet()
         {
+            if (Program.IsAdmin == false)
+            {
+                Response.Redirect("/News");
+            }
         }
         public void OnGetOnUpdt(int id,string name, string description, string cshtmlCode, string title)
         {
