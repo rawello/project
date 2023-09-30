@@ -12,7 +12,7 @@ namespace project.Pages
                 Response.Redirect("/News");
             }
         }
-        public void OnGetOnCrt(string name, string description, string cshtml, string title)
+        public void OnPostOnCrt(string name, string description, string cshtml, string title)
         {
             if(Routes.AddPost(name, description, cshtml, title) == "1")
             {

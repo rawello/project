@@ -42,7 +42,7 @@
     }
 </style>
                     <h1 align="center">Добавление новости</h1>
-                    <form asp-page-handler="OnCrt" method="get">
+                    <form asp-page-handler="OnCrt" method="post">
                         <input type="number" id="@Program.tempPage" name="id" value="@Program.tempPage" hidden="hidden"/>
                         <div class="form-text">
                             <label for="name">Введите название</label>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="form-text">
                             <label for="cshtmlCode">Введите код страницы</label>
-                            <textarea class="cshtml" name="cshtml" required minlength="5" maxlength="2083" size="24"></textarea>
+                            <textarea class="cshtml" name="cshtml" required minlength="5" size="24"></textarea>
                         </div>
                         <div class="form-text">
                             <label for="title">Введите заголовок</label>
