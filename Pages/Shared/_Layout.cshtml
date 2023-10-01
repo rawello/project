@@ -9,12 +9,14 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/project.styles.css" asp-append-version="true" />
-    @* <style>
-        a{
-            font-size: 20pt;
-
+    <style>
+        header{
+            box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
         }
-    </style> *@
+        footer{
+            box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -67,8 +69,8 @@
         <div class="container">
             &copy; 2023
             - Voronov
-            - <a asp-area="" asp-page="/Contacts">Контакты</a>
-            - <a asp-area="" asp-page="/About">О нас</a>
+            - <a asp-area="" asp-page="/Contacts" style="color: #808080">Контакты</a>
+            - <a asp-area="" asp-page="/About" style="color: #808080">О нас</a>
         </div>
     </footer>
 

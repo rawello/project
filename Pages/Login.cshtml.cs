@@ -8,7 +8,8 @@ namespace project.Pages
     [IgnoreAntiforgeryToken]
     public class LoginModel : PageModel
     {
-        public void OnGet(string email, string password)
+        public void OnGet() { }
+        public void OnPostOnLogin(string email, string password)
         {
             if (Routes.Login(email, password) == "1")
             {

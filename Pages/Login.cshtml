@@ -1,11 +1,11 @@
-﻿@page
+﻿@page "{handler?}"
 @model project.Pages.LoginModel
 @{
     ViewData["Title"] = "Вход";
 }
 <style>
     form {
-        margin-top: 100px;
+        margin-top: 30%;
     }
 
     .form-text{
@@ -13,39 +13,71 @@
         display: block;
         text-align: center;
         position:center;
-        margin-top: 300px;
-        width: 140px;
+        margin-left: 20%;
+        width: 50%;
+        height: 70%;
         padding: 15px;
-        margin: auto;
     }
     .text-form{
-        margin-left: 30px;
+        width: 140%;
+        height: 70%;
+        margin-left: 15%;
+        color: #ffffff;
     }
     .signup{
         text-align: center;
     }
     input{
-        font-size: 15pt;
+        font-size: 1vw;
+        border-radius: 8px;
+        width: 140%;
+        height: 70%;
+        box-shadow: 0 0 0 3px #000;
+        border: 5px solid transparent;
     }
     .submition{
         position: center;
-        margin-top: 28px;
+        margin-top: 15px;
         font-size: 16pt;
-        width: 270px;
-        height: 35px;
+        width: 140%;
+        height: 70%;
+    }
+    .backgroundSquare{
+        text-align: center;
+        margin: auto;
+        position: center;
+        /* margin-top: 200px;
+        margin-left: 300px; */
+        border-radius: 25px;
+        height: 35%;
+        width: 35%;
+        background-color: #212529;
+        box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+    }
+    .h1Square{
+        margin: auto;
+        position: center;
+        height: 50%;
+        width: 25%;
+        background-color: #212529;
+        border-radius: 25px;
+        box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
     }
 </style>
-<form action="login" method="get">
+<h1 align="center" class="h1Square" style="color: #ffffff; padding: 5px;">Вход</h1>
+<div class="backgroundSquare">
+<form asp-page-handler="OnLogin" method="post">
     <div class="form-text">
-        <label for="email" style="width: 200px" class="text-form">Введите логин</label>
+            <label for="email" style="width: 100%" class="text-form">Введите логин</label>
         <input type="text" id="email" name="email" required minlength="5" size="24" class="text-input" />
     </div>
     <div class="form-text">
-        <label for="password" style="width: 200px" class="text-form">Введите пароль</label>
-        <input type="password" id="password" name="password" required minlength="5" size="24" class="text-input" />
+            <label for="password" style="width: 100%" class="text-form">Введите пароль</label>
+        <input type="password" id="password" name="password" required minlength="5" size="24" class="text-input" style="color: #ffffff;" />
     </div>
     <div class="form-text" style="position: center">
         <input type="submit" value="Войти" class="submition"/>
-        <a class="signup" asp-area="" asp-page="/Signup" style="text-align: center; margin-left: 70px; padding: 10px; color: #808080">Регистрация</a>
+        <a class="signup" asp-area="" asp-page="/Signup" style="text-align: center; margin-left: 20%; padding: 10px; color: #808080; font-size:1.3vw">Регистрация</a>
     </div>
 </form>
+</div>

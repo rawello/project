@@ -8,7 +8,7 @@ namespace project.Pages
         public void OnGet()
         {
         }
-        public void OnPost(string email, string password)
+        public void OnPostOnSignin(string email, string password)
         {
             if(Routes.Signup(email, password) == "1")
             {

@@ -1,26 +1,29 @@
-﻿@page
+﻿@page "{handler?}"
 @model project.Pages.SignupModel
 @{
     ViewData["Title"] = "Регистрация";
 
 }
 <style>
-    form{
-        margin-top: 100px;
+    form {
+        margin-top: 30%;
     }
     .form-text {
         font-size: 15pt;
         display: block;
         text-align: center;
         position: center;
-        margin-top: 300px;
-        width: 140px;
+        margin-left: 20%;
+        width: 50%;
+        height: 70%;
         padding: 15px;
-        margin: auto;
     }
 
     .text-form {
-        margin-left: 30px;
+        width: 140%;
+        height: 70%;
+        margin-left: 15%;
+        color: #ffffff;
     }
 
     .signup {
@@ -29,27 +32,63 @@
 
     input {
         font-size: 15pt;
+        border-radius: 8px;
+        width: 140%;
+        height: 70%;
+        box-shadow: 0 0 0 3px #000;
+        border: 5px solid transparent;
     }
 
     .submition {
         position: center;
-        margin-top: 28px;
+        margin-top: 15px;
         font-size: 16pt;
-        width: 270px;
-        height: 35px;
+        width: 140%;
+        height: 70%;
+    }
+
+    .backgroundSquare {
+        text-align: center;
+        margin: auto;
+        position: center;
+        border-radius: 25px;
+        height: 35%;
+        width: 35%;
+        background-color: #212529;
+        box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+    }
+    .h1Square {
+        margin: auto;
+        position: center;
+        height: 50%;
+        width: 25%;
+        background-color: #212529;
+        border-radius: 25px;
+        box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+    }
+    a.signup{
+        position: center;
+        margin: inherit;
+        text-align: center;
+        font-size: 90%;
     }
 </style>
-<form action="login" method="post" asp-antiforgery="true">
+<h1 align="center" class="h1Square" style="color: #ffffff; padding: 5px; font-size: 2.2vw;">Регистрация</h1>
+<div class="backgroundSquare">
+<form asp-page-handler="OnSignin" method="post" asp-antiforgery="true">
     <div class="form-text">
-        <label for="email" style="width: 200px" class="text-form">Введите логин</label>
+            <label for="email" style="width: 100%" class="text-form">Введите логин</label>
         <input type="text" id="email" name="email" required minlength="5" size="24" class="text-input" />
     </div>
     <div class="form-text">
-        <label for="password" style="width: 200px" class="text-form">Введите пароль</label>
+        <label for="password" style="width: 100%" class="text-form">Введите пароль</label>
         <input type="password" id="password" name="password" required minlength="5" size="24" class="text-input" />
     </div>
     <div class="form-text" style="position: center">
         <input type="submit" value="Зарегистрироваться" class="submition" />
-        <a class="signup" asp-area="" asp-page="/Login" style="text-align: center; margin-left: 70px; padding: 10px; color: #808080">Вход </a>
+            <a class="signup" asp-area="" asp-page="/Login" style="text-align: center; color: #808080; font-size:1.5vw">Вход </a>
+            <a class="signup" asp-area="" asp-page="/Index" style="text-align: center; color: #808080; font-size:1vw">Забыл пароль</a>
     </div>
+
 </form>
+</div>

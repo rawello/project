@@ -8,5 +8,9 @@ namespace project.Pages
         public void OnGet()
         {
         }
+        public void OnGetBack()
+        {
+            Response.Redirect("/News");
+        }
     }
 }

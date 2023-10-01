@@ -5,62 +5,119 @@
 }
 
 <style>
+
+    form{
+        width: 75%;
+        height: 70%;
+    }
     .form-text {
-        display: block;
+        display:block;
         text-align: center;
         position: center;
-        width: 350px;
+        width: 65%;
+        height: 65%;
         padding: 10px;
         margin: auto;
         align-content: center;
     }
 
     label{
-        width: 200px;
+        width: 150%;
         align-content: center;
+        color: #ffffff;
     }
 
     textarea.cshtml {
-        width: 300px;
-        height: 350px;
+        width: calc(150% - .15px);
+        height: 300px;
         padding: 5px 10px 5px 10px;
-        border: 1px solid #808080;
         text-align: start;
         font-size: 16px;
         font-family: Tahoma;
-    }
-    input{
-        width: 300px;
+        border-radius: 10px;
+        box-shadow: 0 0 0 3px #000;
+        border: 5px solid transparent;
     }
 
-    input.but{
-        width: 300px;
+    textarea.description {
+        width: calc(150% - .15px);
+        height: 100px;
+        padding: 5px 10px 5px 10px;
+        text-align: start;
+        font-size: 16px;
+        font-family: Tahoma;
+        border-radius: 10px;
+        box-shadow: 0 0 0 3px #000;
+        border: 5px solid transparent;
+    }
+
+    input{
+        width: 150%;
+        box-shadow: 0 0 0 3px #000;
+        border: 5px solid transparent;
     }
 
     .signup {
         text-align: center;
     }
+
+    .h1Square {
+        margin: auto;
+        position: center;
+        height: 50%;
+        width: 25%;
+        background-color: #212529;
+        color: #ffffff;
+        border-radius: 25px;
+        box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+    }
+
+    .formSquare {
+        margin: auto;
+        margin-top: 20px;
+        position: center;
+        width: 50%;
+        background-color: #212529;
+        color: #ffffff;
+        border-radius: 25px;
+        box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+    }
+    .inputClass{
+        border-radius: 15px;
+    }
+    .inputBut{
+        border-radius: 15px;
+    }
+    .inputBut:hover{
+            background-color: #19e619;
+    }
 </style>
-                    <h1 align="center">Добавление новости</h1>
+                    <h1 align="center" class="h1Square" style="color: #ffffff; padding: 5px;">Добавление новости</h1>
+                    <form asp-page-handler="Back" method="get">
+                    <button class="h1Square" style="background-color:#212529; border-color: #212529; border-radius: 15px; font-size: 1.3vw; position:center; margin-top: -10%; height: 110%; width:15%; float: left;">Вернуться назад</button>
+                    </form>
+
+                 <div class="formSquare">
                     <form asp-page-handler="OnCrt" method="post">
                         <input type="number" id="@Program.tempPage" name="id" value="@Program.tempPage" hidden="hidden"/>
                         <div class="form-text">
                             <label for="name">Введите название</label>
-                            <input type="text" id="name" name="name" required minlength="5" size="24" />
+                            <input class="inputClass"type="text" id="name" name="name" required minlength="5" style="font-size: 1vw;" />
                         </div>
                         <div class="form-text">
                             <label for="description">Введите описание</label>
-                            <input type="text" id="description" name="description" required minlength="5" size="24" />
+            <textarea class="description" name="description" required minlength="5" style="font-size: 1vw;"></textarea>
                         </div>
                         <div class="form-text">
                             <label for="cshtmlCode">Введите код страницы</label>
-                            <textarea class="cshtml" name="cshtml" required minlength="5" size="24"></textarea>
+            <textarea class="cshtml" name="cshtml" required minlength="5" style="font-size: 1vw;"></textarea>
                         </div>
                         <div class="form-text">
                             <label for="title">Введите заголовок</label>
-                            <input type="text" id="title" name="title" required minlength="5" size="24" />
+            <input class="inputClass" type="text" id="title" name="title" required minlength="5" style="font-size: 1vw;" />
                         </div>
                         <div class="form-text">
-                            <input type="submit" class="but" value="Добавить пост" />
+                            <input class="inputBut" type="submit" value="Добавить пост"/>
                         </div>
                     </form>
+                 </div>

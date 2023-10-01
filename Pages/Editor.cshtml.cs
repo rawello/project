@@ -23,5 +23,9 @@ namespace project.Pages
                 Response.Redirect("/News");
             }
         }
+        public void OnGetBack()
+        {
+            Response.Redirect("/News");
+        }
     }
 }

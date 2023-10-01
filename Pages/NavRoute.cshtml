@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{handler?}"
 @using Microsoft.Data.Sqlite;
 @model project.Pages.NavRouteModel
 @{
@@ -14,27 +14,33 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            border-radius: 15px;
+            box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
         }
 
-        .news-post {
-            width: 300px;
-            margin: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .h1Square {
+            margin: auto;
+            position: center;
+            height: 50%;
+            width:70%;
+            background-color: #212529;
+            border-radius: 25px;
+            box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
         }
 
-            .news-post h2 {
-                font-size: 18px;
-            }
-
-            .news-post p {
-                font-size: 14px;
-                margin-bottom: 10px;
-            }
+        h1 {
+            text-align: center;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
+    <h1 align="center" class="h1Square" style="color: #ffffff; padding: 5px; text-indent: 50px; margin-bottom: 20px;">@Program.Name</h1>
+
+    <form asp-page-handler="Back" method="get">
+        <button class="h1Square" style="color:#ffffff;background-color:#212529; border-color: #212529; border-radius: 50px; font-size: 1.3vw; position:center; margin-top: -78px; height: 58px; width:15%; float: left; margin-left:-20px;">Вернуться</button>
+    </form>
+
     <div class="news-container">
         @for (int i = 0; i < 1; i++)
         {
@@ -61,10 +67,6 @@
                             Program.openedPage = (string) title;
                             
                             <style>
-                                h1{
-                                    text-align: center;
-                                    width: 100%;
-                                }
                                 h2{
                                     width: 100%;
                                     text-align: center;
@@ -75,10 +77,10 @@
                                 }
                             </style>
 
-                            <h1>@name</h1>
                             <p>
-                            <h2>@description</h2>
+                            <h3>@Html.Raw(description)</h3>
                             </p>
+                            <hr style="width: 100%">
                             <p>
                             <h3>@Html.Raw(cshtml)</h3>
                             </p>

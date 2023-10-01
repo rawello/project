@@ -3,3 +3,193 @@
 @{
     ViewData["Title"] = "О нас";
 }
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>News Page</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>News Page</h1>
+        <button class="add-btn">Добавить новость</button>
+    </div>
+
+    <div class="toggle-switch">
+        <input type="checkbox" id="switch">
+        <label for="switch"></label>
+    </div>
+
+    <div class="news-container">
+        <div class="news-item">
+            <h3>Заголовок новости 1</h3>
+            <p>Текст новости 1</p>
+            <div class="news-actions">
+                <button class="edit-btn">Редактировать новость</button>
+                <button class="delete-btn">Удалить новость</button>
+            </div>
+        </div>
+        <div class="news-item">
+            <h3>Заголовок новости 2</h3>
+            <p>Текст новости 2</p>
+            <div class="news-actions">
+                <button class="edit-btn">Редактировать новость</button>
+                <button class="delete-btn">Удалить новость</button>
+            </div>
+        </div>
+        <div class="news-item">
+            <h3>Заголовок новости 2</h3>
+            <p>Текст новости 2</p>
+            <div class="news-actions">
+                <button class="edit-btn">Редактировать новость</button>
+                <button class="delete-btn">Удалить новость</button>
+            </div>
+        </div>
+        <div class="news-item">
+            <h3>Заголовок новости 2</h3>
+            <p>Текст новости 2</p>
+            <div class="news-actions">
+                <button class="edit-btn">Редактировать новость</button>
+                <button class="delete-btn">Удалить новость</button>
+            </div>
+        </div>
+        <div class="news-item">
+            <h3>Заголовок новости 2</h3>
+            <p>Текст новости 2</p>
+            <div class="news-actions">
+                <button class="edit-btn">Редактировать новость</button>
+                <button class="delete-btn">Удалить новость</button>
+            </div>
+        </div>
+        <!-- Другие новости -->
+    </div>
+
+    <!-- Диалоговое окно для добавления/редактирования новости -->
+    <div class="modal">
+        <h2>Добавить/Редактировать новость</h2>
+        <form>
+            <input type="text" placeholder="Заголовок новости">
+            <textarea placeholder="Текст новости"></textarea>
+            <div class="modal-buttons">
+                <button type="submit" class="save-btn">Сохранить</button>
+                <button type="button" class="cancel-btn">Отмена</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+    .news-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .news-item {
+        width: 23%;
+        flex-shrink: 0;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+.news-item h3 {
+  margin-top: 0;
+}
+
+.news-item p {
+  margin-bottom: 20px;
+}
+
+.news-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-btn {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  width: 400px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.modal h2 {
+  margin-top: 0;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal input,
+.modal textarea {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-buttons button {
+  margin-left: 10px;
+}
+</style>

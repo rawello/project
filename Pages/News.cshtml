@@ -10,43 +10,251 @@
 <head>
     <title>Новости</title>
     <style>
+        import url('https://fonts.googleapis.com/css?family=Lato:400,500,600,700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
+        }
+        .wrapper {
+            display: inline-flex;
+            margin-top: -20px;
+            background: #fff;
+            height: 110%;
+            width: 25%;
+            align-items: center;
+            justify-content: space-evenly;
+            border-radius: 15px;
+            padding: 20px 15px;
+            /* box-shadow: 5px 5px 30px rgba(0,0,0,0.2); */
+        }
+
+            .wrapper .option {
+                background: #fff;
+                height: 100%;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                margin: 0 10px;
+                border-radius: 15px;
+                cursor: pointer;
+                padding: 0 10px;
+                border: 2px solid lightgrey;
+                transition: all 0.3s ease;
+            }
+
+                .wrapper .option .dot {
+                    height: 15px;
+                    width: 15px;
+                    background: #d9d9d9;
+                    border-radius: 50%;
+                    position: relative;
+                }
+
+                    .wrapper .option .dot::before {
+                        position: absolute;
+                        content: "";
+                        top: 3px;
+                        left: 3.3px;
+                        width: 9px;
+                        height: 9px;
+                        background: #212529;
+                        border-radius: 50%;
+                        opacity: 0;
+                        transform: scale(1.5);
+                        transition: all 0.3s ease;
+                    }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        #option1:checked:checked ~ .option1,
+        #option2:checked:checked ~ .option2 {
+            border-color: #212529;
+            background: #ffffff;
+        }
+
+            #option1:checked:checked ~ .option1 .dot,
+            #option2:checked:checked ~ .option2 .dot {
+                background: #fff;
+            }
+
+                #option1:checked:checked ~ .option1 .dot::before,
+                #option2:checked:checked ~ .option2 .dot::before {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+
+        .wrapper .option span {
+            font-size: 20px;
+            color: #808080;
+        }
+
+        #option1:checked:checked ~ .option1 span,
+        #option2:checked:checked ~ .option2 span {
+            color: #fff;
+        }
+
+ /*        ddddddd       ddddddd      ddddd                            */
+
         .news-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
         }
 
-        .news-post {
-            width: 300px;
-            margin: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .news-items{
+            display: grid;
+            justify-content: center;
+            grid-template-columns: 1fr;
+            grid-template-rows: 50px 250px 50px;
+        }
+        .titlePost{
+            grid-row: span 1;
         }
 
-            .news-post h2 {
-                margin-top: 15px;
-                font-size: 18px;
-            }
+        .h2Post{
+            text-align: center;
+            width: 100%;
+            grid-row: span 1;
+        }
+        .h2Post h2{
+            font-size: 1vw;
+            /* margin-top: 20%; */
+        }
+        .buttons{
+            grid-row: span 1;
+            display: grid;
+            margin-left: -20px;
+            margin-top: -20px;
+            grid-template-columns: 149px 149px;
+        }
+        .buttonDeletePost{
+            width: 100%;
+            grid-column: span 1;
+        }
+        .buttonUpdatePost{
+            width: 100%;
+            grid-column: span 1;
+        }
 
-            .news-post p {
-                font-size: 14px;
-                margin-bottom: 10px;
-            }
-            .btn-close{
-                color: red;
-            }
+        .h1Square {
+            margin: auto;
+            position: center;
+            text-align: center;
+            font-size: 2vw;
+            height: 100%;
+            width: 30%;
+            background-color: #212529;
+            color: #ffffff;
+            border-radius: 25px;
+            box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+        }
+
+        .container-first{
+            display: grid;
+            gap: 20px;
+            grid-template-areas:
+                "A A A A   A A A A   A A A A"
+                "B B B B   B B C C   C C C C"
+                "B B B B   B B C C   C C C C";
+        }
+        .title{
+            grid-area: A;
+        }
+        .change{
+            grid-area: C;
+        }
+        .add{
+            grid-area: B;
+        }
     </style>
 </head>
 <body>
+    <div class="container-first">
+        <div class="title"><h1 class="h1Square" style="color: #ffffff; padding: 5px;">Новости</h1></div>
+        <div class="change">
+            <form asp-page-handler="Size" method="get" id="myForm">
+            <div class="wrapper" style="float:right;">
+                    @if(Program.IsBig == 23)
+                    {
+                        <input type="radio" name="select" id="option1" value="1" onchange="submitForm()" checked>
+                        <input type="radio" name="select" id="option2" value="0" onchange="submitForm()" >
+                        <input type="text" name="state" id="state" value="big" hidden="hidden">
+                        <label for="option1" class="option option1">
+                            <div class="dot"></div>
+                            <span> <img src="https://cdn.icon-icons.com/icons2/596/PNG/512/four-squares_icon-icons.com_55584.png" style="width:25px; height: 20px;"  /></span>
+                        </label>
+                        <label for="option2" class="option option2">
+                            <div class="dot"></div>
+                            <span><img src="https://cdn.icon-icons.com/icons2/1710/PNG/512/tworectanglesoutline_112541.png" style="width:25px; height: 20px;  opacity: 0.3; margin-top: -5px;" /> </span>
+                        </label>
+                        <style>
+                            .news-post {
+                                width: 300px;
+                                display: flex;
+                                flex-wrap: wrap;
+                                justify-content: center;
+                                min-height: 23%;
+                                max-height: 23%;
+                                margin: 10px;
+                                padding: 10px;
+                                border: 2px solid #ccc;
+                                border-radius: 15px;
+                                box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+                            }
+                        </style>
+                    }else{
+                        <input type="radio" name="select" id="option1" value="1" onchange="submitForm()">
+                        <input type="radio" name="select" id="option2" value="0" onchange="submitForm()" checked>
+                        <input type="text" name="state" id="state" value="min" hidden="hidden">
+                        <label for="option1" class="option option1">
+                            <div class="dot"></div>
+                            <span> <img src="https://cdn.icon-icons.com/icons2/596/PNG/512/four-squares_icon-icons.com_55584.png" style="width:25px; height: 20px; opacity: 0.3; margin-top: -5px;" /></span>
+                        </label>
+                        <label for="option2" class="option option2">
+                            <div class="dot"></div>
+                            <span><img src="https://cdn.icon-icons.com/icons2/1710/PNG/512/tworectanglesoutline_112541.png" style="width:25px; height: 20px;" /> </span>
+                        </label>
+                        <style>
+                            .news-post {
+                                width: 100%;
+                                display: flex;
+                                flex-wrap: wrap;
+                                justify-content: center;
+                                min-height: 23%;
+                                max-height: 23%;
+                                margin: 10px;
+                                padding: 10px;
+                                border: 2px solid #ccc;
+                                border-radius: 15px;
+                                box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+                            }
+                        </style>
+                    }
+                    <button type="submit" hidden="hidden"></button>
+            </div>
+            </form>
+            <script>
+                function submitForm() {
+                    document.getElementById('myForm').submit();
+                }
+            </script>
+        </div>
+        <div class="add">
+            @if (Program.IsAdmin == true)
+            {
+                <form asp-page-handler="OnAdd" method="get">
+                    <button class="h1Square" style="background-color:#212529; border-color: #212529; border-radius: 15px; font-size: 1.3vw; position:center; margin:auto; height: 110%; float: left; margin-top: -30px;">Добавить новость</button>
+                </form>
+            }
+        </div>
+    </div>
 
-    <h1>Новости</h1>
-    @if(Program.IsAdmin == true){
-        <form asp-page-handler="OnAdd" method="get">
-            <button class="btn-primary">Добавить новость</button>
-        </form>
-    }
-    
     
     <div class="news-container">
         @for (int i = 0;i<1 ;i++ )
@@ -70,39 +278,44 @@
 
 
                             <div class="news-post" align="center" id="@id">
-
-                                <form asp-page-handler="OnClick" method="get">
-                                <font size="+0">
-                                        <input type="submit" value="@Html.Raw(name)">
-                                </font>
-
-                                    <input type="number" name="id" id="@id" value="@id" hidden="hidden">
-                                </form>
-
-                                <h2>@Html.Raw(description)</h2>
-
-
-                                @if (Program.IsAdmin == true)
-                                {
-                                    <table>
-                                        <tr>
-                                    <form asp-page-handler="OnDelete" method="get">
-                                        <button class="btn-danger"></button>
-
+                                
+                                <div class="news-items"> 
+                                    <div class="titlePost" style="width: 100%;">
+                                        <form asp-page-handler="OnClick" method="get">
+                                        <font size="+0">
+                                                <input type="submit" value="@Html.Raw(name)" style="border-color: transparent; background: transparent;">
+                                        </font>
                                         <input type="number" name="id" id="@id" value="@id" hidden="hidden">
-                                    </form>
-                                        </tr>
-                                        <tr>
-                                            <form asp-page-handler="OnEdit" method="get">
-                                                <button class="btn-success"></button>
+                                        <input type="text" name="name" id="@id" value="@name" hidden="hidden">
+                                        </form>
+                                        <hr style="display: flex; vertical-align: bottom; width: 80%;">
+                                    </div>
+                                    <div class="h2Post" style="width: 100%;">
+                                        <h2>@Html.Raw(description)</h2>
 
-                                                <input type="number" name="id" id="@id" value="@id" hidden="hidden">
-                                            </form>
-                                        </tr>
-                                    </table>
+                                    </div>
 
-                                }
+                                    @if (Program.IsAdmin == true)
+                                    {
+                                        <hr style="display: flex; justify-content:center; vertical-align: bottom; width: 80%; margin-left:20px;">
+                                      <div class="buttons">
+                                        <div class="buttonDeletePost">
+                                        <form asp-page-handler="OnDelete" method="get">
+                                                    <input class="inputClass" type="submit" value="Удалить" style="border-radius: 10px; border: 10px;" />
+                                                    <input type="number" name="id" id="@id" value="@id" hidden="hidden">
+                                        </form>
+                                        </div>
 
+                                        <div class="buttonUpdatePost">
+                                         <form asp-page-handler="OnEdit" method="get">
+                                                    <input class="inputClass" type="submit" value="Редактировать" style="border-radius: 10px; border: 2px;" />
+                                              <input type="number" name="id" id="@id" value="@id" hidden="hidden">
+                                         </form>
+                                        </div>
+                                      </div>
+                                    }
+                                    
+                                </div>
                             </div>
                             
                         }

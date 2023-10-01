@@ -7,7 +7,8 @@ namespace project
 {
     public class Program
     {
-        //DateTime        localdate               = DateTime.Now;
+        public static   int     IsBig           = 23;
+        public static   string  Name            = "";
         public static   string  SessionKeyName  = "Гость";
         public static   bool    IsLogged        = false;
         public static   bool    IsAdmin         = false;

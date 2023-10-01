@@ -278,5 +278,10 @@ namespace project
                 }
             }
         }
+        public static RedirectResult ChangeSize(int size)
+        {
+            Program.IsBig = size;
+            return new RedirectResult("/News");
+        }
     }
 }
