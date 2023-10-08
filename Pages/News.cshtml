@@ -175,6 +175,45 @@
         .inputClass:hover{
                     background-color: #808080;
             }
+            
+         /*mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm*/
+         .modal {
+                   display: none; /* Скрыто по умолчанию */
+                   position: fixed; /* Оставаться на месте */
+                   z-index: 1; /* Сидеть на вершине */
+                   left: 0;
+                   top: 0;
+                   width: 100%; /* Полная ширина */
+                   height: 100%; /* Полная высота */
+                   overflow: auto; /* Включите прокрутку, если это необходимо */
+                   background-color: rgb(0,0,0); /* Цвет запасной вариант */
+                   background-color: rgba(0,0,0,0.4); /* Черный с непрозрачностью */
+                 }
+                 
+                 /* Модальное содержание/коробка */
+                 .modal-content {
+                   background-color: #fefefe;
+                   margin: 15% auto; /* 15% сверху и по центру */
+                   padding: 20px;
+                   border: 1px solid #888;
+                   width: 80%; /* Может быть больше или меньше, в зависимости от размера экрана */
+                 }
+                 
+                 /* Кнопка закрытия */
+                 .close {
+                   color: #aaa;
+                   float: right;
+                   font-size: 28px;
+                   font-weight: bold;
+                 }
+                 
+                 .close:hover,
+                 .close:focus {
+                   color: black;
+                   text-decoration: none;
+                   cursor: pointer;
+                 }
+         
     </style>
 </head>
 <body>
@@ -263,158 +302,81 @@
             }
         </div>
     </div>
-    @if (Program.ModalState == "1")
+
+@if (Program.ModalState == "1")
     {
         <div id="myModal" class="modal">
-
-    <!-- Модальное содержание -->
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p align="center">Вы успешно вошли!</p>
-    </div>
-
+    
+            <!-- Модальное содержание -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p align="center">Вы успешно вошли!</p>
+            </div>
         </div>
-        <style>
-    .modal {
-      display: none; /* Скрыто по умолчанию */
-      position: fixed; /* Оставаться на месте */
-      z-index: 1; /* Сидеть на вершине */
-      left: 0;
-      top: 0;
-      width: 100%; /* Полная ширина */
-      height: 100%; /* Полная высота */
-      overflow: auto; /* Включите прокрутку, если это необходимо */
-      background-color: rgb(0,0,0); /* Цвет запасной вариант */
-      background-color: rgba(0,0,0,0.4); /* Черный с непрозрачностью */
-    }
-    
-    /* Модальное содержание/коробка */
-    .modal-content {
-      background-color: #fefefe;
-      margin: 15% auto; /* 15% сверху и по центру */
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%; /* Может быть больше или меньше, в зависимости от размера экрана */
-    }
-    
-    /* Кнопка закрытия */
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-    
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    </style>
         <script>
-    var modal = document.getElementById("myModal");
+            var modal = document.getElementById("myModal");
 
-    var btn = document.getElementById("myBtn");
+            var btn = document.getElementById("myBtn");
 
-    var span = document.getElementsByClassName("close")[0];
+            var span = document.getElementsByClassName("close")[0];
 
     
-    modal.style.display = "block";
+        modal.style.display = "block";
     
 
-    span.onclick = function() {
-    modal.style.display = "none";
-    @{
-        Program.ModalState = "0";
-    }
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
+        span.onclick = function() {
         modal.style.display = "none";
         @{
             Program.ModalState = "0";
         }
         }
-    }
-    </script>
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+            modal.style.display = "none";
+            @{
+                Program.ModalState = "0";
+            }
+            }
+        }
+        </script>
     }else if (Program.ModalState == "2")
     {
         <div id="myModal" class="modal">
-
+    
             <!-- Модальное содержание -->
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <p align="center">Вы успешно зарегистрировались!</p>
             </div>
-
         </div>
-        <style>
-    .modal {
-      display: none; /* Скрыто по умолчанию */
-      position: fixed; /* Оставаться на месте */
-      z-index: 1; /* Сидеть на вершине */
-      left: 0;
-      top: 0;
-      width: 100%; /* Полная ширина */
-      height: 100%; /* Полная высота */
-      overflow: auto; /* Включите прокрутку, если это необходимо */
-      background-color: rgb(0,0,0); /* Цвет запасной вариант */
-      background-color: rgba(0,0,0,0.4); /* Черный с непрозрачностью */
-    }
-    
-    /* Модальное содержание/коробка */
-    .modal-content {
-      background-color: #fefefe;
-      margin: 15% auto; /* 15% сверху и по центру */
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%; /* Может быть больше или меньше, в зависимости от размера экрана */
-    }
-    
-    /* Кнопка закрытия */
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-    
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    </style>
         <script>
-    var modal = document.getElementById("myModal");
+            var modal = document.getElementById("myModal");
 
-    var btn = document.getElementById("myBtn");
+            var btn = document.getElementById("myBtn");
 
-    var span = document.getElementsByClassName("close")[0];
+            var span = document.getElementsByClassName("close")[0];
 
     
-    modal.style.display = "block";
+            modal.style.display = "block";
     
 
-    span.onclick = function() {
-    modal.style.display = "none";
-    @{
-        Program.ModalState = "0";
-    }
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-        modal.style.display = "none";
-        @{
+            span.onclick = function() {
+            modal.style.display = "none";
+          @{
             Program.ModalState = "0";
+          }
         }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                modal.style.display = "none";
+            @{
+                Program.ModalState = "0";
+            }
+            }
         }
-    }
-    </script>
+        </script>
     }
     
     <div class="news-container">
