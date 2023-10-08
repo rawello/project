@@ -7,6 +7,7 @@ namespace project
 {
     public class Program
     {
+        public static   int     ModalId         = 0;
         public static   string  ModalState      = "0";
         public static   int     IsBig           = 23;
         public static   string  LoginState      = "0";

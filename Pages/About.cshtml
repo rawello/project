@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "О нас";
 }
-<button id="myBtn">Открыть модальный</button>
+<button id="myBtn" onclick="func()">Открыть модальный</button>
 <div id="myModal" class="modal">
 
     <!-- Модальное содержание -->
@@ -52,8 +52,6 @@
       cursor: pointer;
     }
 </style>
-@if (Program.ModalState != "0")
-{
   <script>
 var modal = document.getElementById("myModal");
 
@@ -71,19 +69,12 @@ function func() {
 // Когда пользователь нажимает на <span> (x), закройте модальное окно
 span.onclick = function() {
   modal.style.display = "none";
-  @{
-    Program.ModalState = "0";
-  }
 }
 
 // Когда пользователь щелкает в любом месте за пределами модального, закройте его
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
-    @{
-      Program.ModalState = "0";
-    }
 }
 }
 </script>
-}

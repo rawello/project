@@ -124,7 +124,7 @@
         }
         .h2Post h2{
             font-size: 1vw;
-            /* margin-top: 20%; */
+            margin-top: 5%; 
         }
         .buttons{
             grid-row: span 1;
@@ -197,6 +197,7 @@
                    padding: 20px;
                    border: 1px solid #888;
                    width: 80%; /* Может быть больше или меньше, в зависимости от размера экрана */
+                   box-shadow: 5px 5px 30px rgba(0,0,0,0.2)
                  }
                  
                  /* Кнопка закрытия */
@@ -220,7 +221,7 @@
     <div class="container-first">
         <div class="title"><h1 class="h1Square" style="color: #ffffff; padding: 5px;">Новости</h1></div>
         <div class="change">
-            <form asp-page-handler="Size" method="get" id="myForm">
+            <form asp-page-handler="Size" method="get" id="FormSize">
             <div class="wrapper" style="float:right;">
                     @if(Program.IsBig == 23)
                     {
@@ -283,7 +284,7 @@
             </form>
             <script>
                 function submitForm() {
-                    document.getElementById('myForm').submit();
+                    document.getElementById('FormSize').submit();
                 }
             </script>
         </div>
@@ -310,7 +311,7 @@
             <!-- Модальное содержание -->
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <p align="center">Вы успешно вошли!</p>
+                <p align="center">Вы успешно вошли!</p><br>
             </div>
         </div>
         <script>
@@ -321,25 +322,25 @@
             var span = document.getElementsByClassName("close")[0];
 
     
-        modal.style.display = "block";
+            modal.style.display = "block";
     
 
-        span.onclick = function() {
-        modal.style.display = "none";
-        @{
-            Program.ModalState = "0";
-        }
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
+            span.onclick = function() {
             modal.style.display = "none";
             @{
                 Program.ModalState = "0";
             }
             }
-        }
-        </script>
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                modal.style.display = "none";
+                @{
+                Program.ModalState = "0";
+                }
+                }
+            }
+            </script>
     }else if (Program.ModalState == "2")
     {
         <div id="myModal" class="modal">
@@ -363,10 +364,10 @@
 
             span.onclick = function() {
             modal.style.display = "none";
-          @{
-            Program.ModalState = "0";
-          }
-        }
+                @{
+                    Program.ModalState = "0";
+                }
+             }
 
             window.onclick = function(event) {
                 if (event.target == modal) {
@@ -421,25 +422,59 @@
                                     @if (Program.IsAdmin == true)
                                     {
                                         <hr style="display: flex; justify-content:center; vertical-align: bottom; width: 80%; margin-left:20px;">
-                                      <div class="buttons">
-                                        <div class="buttonDeletePost">
-                                        <form asp-page-handler="OnDelete" method="get">
-                                                    <input class="inputClass" type="submit" value="Удалить" style="border-radius: 10px; border: 10px;" />
-                                                    <input type="number" name="id" id="@id" value="@id" hidden="hidden">
-                                        </form>
-                                        </div>
+                                        <div class="buttons">
+                                            <div class="buttonDeletePost">
+                                                    <input class="inputClass" id="DeleteButtonModal" type="button" value="Удалить" style="border-radius: 10px; border: 10px;" onclick="func(@id)" />
+                                            </div>
 
                                         <div class="buttonUpdatePost">
-                                         <form asp-page-handler="OnEdit" method="get">
+                                            <form asp-page-handler="OnEdit" method="get">
                                                     <input class="inputClass" type="submit" value="Редактировать" style="border-radius: 10px; border: 2px;" />
-                                              <input type="number" name="id" id="@id" value="@id" hidden="hidden">
-                                         </form>
+                                                    <input type="number" name="id" id="@id" value="@id" hidden="hidden">
+                                            </form>
                                         </div>
                                       </div>
                                     }
                                     
                                 </div>
                             </div>
+
+                            <div id="myModal" class="modal">
+                                <!-- Модальное содержание -->
+                                <div class="modal-content">
+                                    <span class="close">&times;</span>
+                                    <h2 align="center" style="margin-bottom: 30px;" >Вы уверены?</h2>
+                                    <form asp-page-handler="OnDelete" method="get" id="FormDelete" align="center">
+                                        <input class="text" type="submit" value="Удалить" style="border-radius: 10px; border: 2px; background: #ff0000;" />
+                                        <input type="number" name="id" id="ModalId" value="" hidden="hidden">
+                                    </form>
+                                </div>
+                            </div>
+                        <script>
+                            var modal = document.getElementById("myModal");
+                            var btn = document.getElementById("myBtn");
+                            var span = document.getElementsByClassName("close")[0];
+                            var delbut = document.getElementById("DeleteButtonModal");
+                            var modalId = document.getElementById("ModalId");
+
+                                function func(id) {
+                                    modal.style.display = "block";
+                                    modalId.value = id
+                                    delbut.onclick = function (event) {
+                                        document.getElementById('FormDelete').submit();
+                                    }
+                                }
+
+                                span.onclick = function () {
+                                    modal.style.display = "none";
+                                }
+
+                                window.onclick = function (event) {
+                                    if (event.target == modal) {
+                                        modal.style.display = "none";
+                                    }
+                                }
+                            </script>
                             
                         }
                         connection.Close();
