@@ -47,13 +47,15 @@ namespace project
 
                         return "1";
                     }
-                    else {
+                    if(reader.HasRows == false) 
+                    {
                         connection.Close();
 
                     return "0";
                     }
                 }
             }
+            return "0";
         }
 
 
@@ -94,12 +96,13 @@ namespace project
                     {
                         return "1";
                     }
-                    else
+                    if(reader.HasRows == false)
                     {
                         return "0";
                     }
                 }
             }
+            return "0";
         }
 
 
@@ -124,7 +127,7 @@ namespace project
             //                $"WHERE Name = \"{name}\"" +
             //                $"AND Description = \"{description}\"" +
             //                $"AND Cshtml = \"{cshtml}\"";
-            string sqlExp = "SELECT * FROM Posts";
+            string sqlExp = "SELECT * FROM Posts WHERE _id = '{id}'";
 
             using (var connection = new SqliteConnection($"Data Source={Db}"))
             {
@@ -136,15 +139,16 @@ namespace project
                     {
                         connection.Close();
 
-                        return "1";
-                    }
-                    else {
-                        connection.Close();
-
                         return "0";
+                    }
+                    if(reader.HasRows == false)
+                    {
+                        connection.Close();
+                        return "1";
                     }
                 }
             }
+            return "0";
         }
 
 
@@ -206,10 +210,11 @@ namespace project
 
                  }*/
 
-
+        //0- операция не успешна\забыл почту и пароль, 
+        //1-вошел 2- забыл пароль
         public static string Login(string email, string password)
         {
-            //проверяем есть ли в бд
+            //проверяем есть ли в бд почта и пароль
             string sqlExp = $"SELECT * FROM Users " +
                             $"WHERE Email = \"{email}\"" +
                             $"AND Password = \"{password}\"";
@@ -226,34 +231,32 @@ namespace project
                         connection.Close();
                         return "1";
                     }
-                    else
+                    if(reader.HasRows == false)//если введенная почта верна, а пароль нет
                     {
-                        connection.Close();
-                        return "0";
+                        sqlExp = $"SELECT * FROM Users " +
+                                 $"WHERE Email = \"{email}\"";
+                        SqliteCommand commandEmail = new SqliteCommand(sqlExp, connection);
+                        using (SqliteDataReader readerEmail = commandEmail.ExecuteReader())
+                        {
+                            if (readerEmail.HasRows)
+                            {
+                                connection.Close();
+                                return "2";
+                            }
+                        }
                     }
                 }
+                connection.Close();//если нет почты и пароля
+                return "0";
             }
         }
 
 
+        //0- операция не успешна, 1-зарегистрирован
+        //2- уже зарегистрирован  3- почта используется - отправляем на вход\восстановление
         public static string Signup(string email, string password)
         {
-            //добавляем данные
-            using (var connection = new SqliteConnection($"Data Source={Db}"))
-            {
-                connection.Open();
-
-                SqliteCommand command = new SqliteCommand();
-                command.Connection = connection;
-                command.CommandText = $"INSERT INTO Users (Email, Password)" +
-                                      $" VALUES ('{email}', '{password}')";
-                command.ExecuteNonQuery();
-
-                connection.Close();
-            }
-
-
-            //проверка добавилось или нет
+            //проверка есть ли такие данные в таблице
             string sqlExp = $"SELECT * FROM Users " +
                             $"WHERE Email = \"{email}\"" +
                             $"AND Password = \"{password}\"";
@@ -263,18 +266,37 @@ namespace project
                 SqliteCommand command = new SqliteCommand(sqlExp, connection);
                 using (SqliteDataReader reader = command.ExecuteReader())
                 {
+                    //проверяем есть ли почта и пароль
                     if (reader.HasRows)
                     {
                         connection.Close();
-
-                        return "1";
+                        return "2";
                     }
-                    else
+                    //если нет - проверяем есть ли почта
+                    if(reader.HasRows == false)
                     {
+                        sqlExp = $"SELECT * FROM Users " +
+                                 $"WHERE Email = \"{email}\"";
+                        SqliteCommand commandEmail = new SqliteCommand(sqlExp, connection);
+                        using (SqliteDataReader readerEmail = commandEmail.ExecuteReader())
+                        {
+                            if (readerEmail.HasRows)
+                            {
+                                return "3";
+                            }
+                            if(readerEmail.HasRows == false)// если нет создаем пользователя
+                            {
+                                sqlExp = $"INSERT INTO Users (Email, Password)" +
+                                                      $" VALUES ('{email}', '{password}')";
+                                SqliteCommand commandInsert = new SqliteCommand(sqlExp, connection);
+                                commandInsert.ExecuteNonQuery();
+                                
+                                return "1";
+                            }
+                        }
                         connection.Close();
-
-                        return "0";
                     }
+                    return "0";
                 }
             }
         }

@@ -6,14 +6,14 @@
 }
 <style>
     form {
-        margin-top: 30%;
+        margin-top: 15%;
     }
     .form-text {
         font-size: 15pt;
         display: block;
         text-align: center;
         position: center;
-        margin-left: 20%;
+        margin-left: 17%;
         width: 50%;
         height: 70%;
         padding: 15px;
@@ -69,11 +69,16 @@
     a.signup{
         position: center;
         margin: inherit;
+        margin-left: 38%;
         text-align: center;
         font-size: 90%;
     }
 </style>
 <h1 align="center" class="h1Square" style="color: #ffffff; padding: 5px; font-size: 2.2vw;">Регистрация</h1>
+@if (Program.LoginState == "3")
+{
+    <h1 align="center" class="h1Square" style="color: #ffffff; padding: 5px; margin-top: 20px; ">Такая почта уже существует</h1>
+}
 <div class="backgroundSquare">
 <form asp-page-handler="OnSignin" method="post" asp-antiforgery="true">
     <div class="form-text">
@@ -86,7 +91,7 @@
     </div>
     <div class="form-text" style="position: center">
         <input type="submit" value="Зарегистрироваться" class="submition" />
-            <a class="signup" asp-area="" asp-page="/Login" style="text-align: center; color: #808080; font-size:1.5vw">Вход </a>
+            <a class="signup" asp-area="" asp-page="/Login" style="text-align: center; color: #808080; font-size:1.5vw">Вход </a><br/>
             <a class="signup" asp-area="" asp-page="/Index" style="text-align: center; color: #808080; font-size:1vw">Забыл пароль</a>
     </div>
 

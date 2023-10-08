@@ -1,195 +1,89 @@
 ﻿@page
+@using Microsoft.AspNetCore.SignalR.Protocol
 @model project.Pages.AboutModel
 @{
     ViewData["Title"] = "О нас";
 }
-<!DOCTYPE html>
-<html lang="en">
+<button id="myBtn">Открыть модальный</button>
+<div id="myModal" class="modal">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>News Page</title>
-</head>
-
-<body>
-    <div class="header">
-        <h1>News Page</h1>
-        <button class="add-btn">Добавить новость</button>
+    <!-- Модальное содержание -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Некоторый текст в модальном..</p>
     </div>
 
-    <div class="toggle-switch">
-        <input type="checkbox" id="switch">
-        <label for="switch"></label>
-    </div>
-
-    <div class="news-container">
-        <div class="news-item">
-            <h3>Заголовок новости 1</h3>
-            <p>Текст новости 1</p>
-            <div class="news-actions">
-                <button class="edit-btn">Редактировать новость</button>
-                <button class="delete-btn">Удалить новость</button>
-            </div>
-        </div>
-        <div class="news-item">
-            <h3>Заголовок новости 2</h3>
-            <p>Текст новости 2</p>
-            <div class="news-actions">
-                <button class="edit-btn">Редактировать новость</button>
-                <button class="delete-btn">Удалить новость</button>
-            </div>
-        </div>
-        <div class="news-item">
-            <h3>Заголовок новости 2</h3>
-            <p>Текст новости 2</p>
-            <div class="news-actions">
-                <button class="edit-btn">Редактировать новость</button>
-                <button class="delete-btn">Удалить новость</button>
-            </div>
-        </div>
-        <div class="news-item">
-            <h3>Заголовок новости 2</h3>
-            <p>Текст новости 2</p>
-            <div class="news-actions">
-                <button class="edit-btn">Редактировать новость</button>
-                <button class="delete-btn">Удалить новость</button>
-            </div>
-        </div>
-        <div class="news-item">
-            <h3>Заголовок новости 2</h3>
-            <p>Текст новости 2</p>
-            <div class="news-actions">
-                <button class="edit-btn">Редактировать новость</button>
-                <button class="delete-btn">Удалить новость</button>
-            </div>
-        </div>
-        <!-- Другие новости -->
-    </div>
-
-    <!-- Диалоговое окно для добавления/редактирования новости -->
-    <div class="modal">
-        <h2>Добавить/Редактировать новость</h2>
-        <form>
-            <input type="text" placeholder="Заголовок новости">
-            <textarea placeholder="Текст новости"></textarea>
-            <div class="modal-buttons">
-                <button type="submit" class="save-btn">Сохранить</button>
-                <button type="button" class="cancel-btn">Отмена</button>
-            </div>
-        </form>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-
-</html>
-
-
+</div>
 <style>
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background-color: #333;
-  color: #fff;
-}
-
-    .news-container {
-        display: flex;
-        flex-wrap: wrap;
+    .modal {
+      display: none; /* Скрыто по умолчанию */
+      position: fixed; /* Оставаться на месте */
+      z-index: 1; /* Сидеть на вершине */
+      left: 0;
+      top: 0;
+      width: 100%; /* Полная ширина */
+      height: 100%; /* Полная высота */
+      overflow: auto; /* Включите прокрутку, если это необходимо */
+      background-color: rgb(0,0,0); /* Цвет запасной вариант */
+      background-color: rgba(0,0,0,0.4); /* Черный с непрозрачностью */
     }
-
-    .news-item {
-        width: 23%;
-        flex-shrink: 0;
-        padding: 10px;
-        box-sizing: border-box;
+    
+    /* Модальное содержание/коробка */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto; /* 15% сверху и по центру */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%; /* Может быть больше или меньше, в зависимости от размера экрана */
     }
-
-.news-item h3 {
-  margin-top: 0;
-}
-
-.news-item p {
-  margin-bottom: 20px;
-}
-
-.news-actions {
-  display: flex;
-  justify-content: space-between;
-}
-
-.edit-btn,
-.delete-btn {
-  padding: 10px 20px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.add-btn {
-  margin-bottom: 20px;
-  padding: 10px 20px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-  width: 400px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-.modal h2 {
-  margin-top: 0;
-}
-
-.modal form {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal input,
-.modal textarea {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.modal-buttons {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.modal-buttons button {
-  margin-left: 10px;
-}
+    
+    /* Кнопка закрытия */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
 </style>
+@if (Program.ModalState != "0")
+{
+  <script>
+var modal = document.getElementById("myModal");
+
+// Получить кнопку, которая открывает модальный
+var btn = document.getElementById("myBtn");
+
+// Получить элемент <span>, который закрывает модальный
+var span = document.getElementsByClassName("close")[0];
+
+// Когда пользователь нажимает на кнопку, откройте модальный
+function func() {
+  modal.style.display = "block";
+}
+
+// Когда пользователь нажимает на <span> (x), закройте модальное окно
+span.onclick = function() {
+  modal.style.display = "none";
+  @{
+    Program.ModalState = "0";
+  }
+}
+
+// Когда пользователь щелкает в любом месте за пределами модального, закройте его
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    @{
+      Program.ModalState = "0";
+    }
+}
+}
+</script>
+}
